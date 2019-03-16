@@ -16,7 +16,24 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route("/", methods=['GET','POST'])
+@app.route("/")
+@app.route("/index.html")
+def home():
+    return render_template('index.html')
+
+@app.route("/HowItWorks.html")
+def how():
+    return render_template('HowItWorks.html')
+
+@app.route("/examples.html")
+def examples():
+    return render_template('examples.html')
+
+@app.route("/about.html")
+def about():
+    return render_template('about.html')
+
+@app.route("/upload", methods=['GET','POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
