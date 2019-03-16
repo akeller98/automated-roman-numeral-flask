@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="icon" href="/static/icon.png">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -17,19 +18,19 @@
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
-  .bg-1 { 
+  .bg-1 {
     background-color: #1abc9c; /* Green */
     color: #ffffff;
   }
-  .bg-2 { 
+  .bg-2 {
     background-color: #474e5d; /* Dark Blue */
     color: #ffffff;
   }
-  .bg-3 { 
+  .bg-3 {
     background-color: #ffffff; /* White */
     color: #555555;
   }
-  .bg-4 { 
+  .bg-4 {
     background-color: #2f2f2f; /* Black Gray */
     color: #fff;
   }
@@ -60,9 +61,9 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Our Website</a>
+      <a class="navbar-brand" href="index.html">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -77,20 +78,46 @@
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
   <h2 class="margin">How It Works</h2>
-  <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
+  <p>The analyzer takes an input wav file consisting of piano block chords.
+    This audio signal is then broken up into frames based on onset detection where each frame contains a chord.
+    For each frame, the Harmonic Product Spectrum algorithm is applied to reduce
+    overtones. A chroma vector is created for each frame consisting of a 12-element vector
+    containing the pitches of the chord. This vector is then used a a 12-D feature vector
+    for our Nearest Neighbor Classifier to find the closest matching chord name in our training
+    set of 96 manually-created chord vectors. Once we have all the chord names in a list, we then
+    apply our modified version of the Krumhansl-Schmuckler Key-Finding algorithm to determine
+    the key of the chord progression. Using the key, we calculate the "distance" between the chord
+    root and the key. This "distance" along with the quality of the chord (major,minor,etc.) from the
+    chord name returns the proper Roman Numeral for each chord.
+  </p>
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
   <h3 class="margin">Harmonic Product Spectrum</h3>
-  <p>The Harmonic Product Spectrum is a method for reducing overtones in an audio file...........</p>
+  <p>The Harmonic Product Spectrum is a method for reducing overtones in an acoustic audio signal.
+    It works by multiplying the original signal by a series of downsampled version of the original signal
+    "n" times. For an acoustic piano, we found that multiplying the original signal three times by three
+    downsampled signals provided the most accurate results.
+  </p>
 </div>
 
 <!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Krumhansl-Schmuckler Key-Finding Algorithm</h3><br>
+<div class="container-fluid bg-3 text-center">
+  <h3 class="margin">Krumhansl-Schmuckler Key-Finding Algorithm</h3>
   <div class="row">
-    <p>How KS works:</p>
+    <p>The Krumhansl-Schmuckler algorithm is the algorithm we used to determine the key of
+      a chord progression. The algorithm works by using the Krumhansl-Kessler key profiles,
+      which are statistically measured values representing how often a certain solfege pitches
+      will occur in a key. It takes these key profiles as well as the durations of each pitch
+      in the audio signal and computes the correlation coefficient for each set of points consisting of
+      (key pitch profile, duration). The key with the strongest correlation coefficient is most likely
+      the key of the chord progression. This algorithm works well with melodic signals but tended to
+      fall short on chord progressions with only a few chords. We modified this algorithm by taking
+      the final Roman Numeral output for the top three possible keys and applying a scoring method
+      based on the appearance of certain chords and cadences. The key with the highest score is most
+      likely the key.
+    </p>
     <br>
     <a href="https://www.jstor.org/stable/40285812?seq=1#metadata_info_tab_contents">KS Reference</a>
   </div>
