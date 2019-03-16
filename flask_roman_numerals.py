@@ -25,8 +25,28 @@ def home():
 def how():
     return render_template('HowItWorks.html')
 
-@app.route("/examples.html")
+@app.route("/examples.html", methods=['GET','POST'])
 def examples():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            file.filename = 'upload.wav'
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            res = generate_roman_numerals.generate(filename)
+            key = res[0]
+            roman_nums = res[1]
+            return render_template('examples.html',
+                                    name=key, chords=roman_nums)
     return render_template('examples.html')
 
 @app.route("/about.html")

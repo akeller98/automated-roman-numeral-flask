@@ -17,6 +17,10 @@
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
+  .center_div{
+    margin: 0 auto;
+    width:30% /* value of your choice which suits your alignment */
+  }
   .bg-1 {
     background-color: #1abc9c; /* Green */
     color: #ffffff;
@@ -79,6 +83,13 @@
   <h2 class="margin">Example Testing</h2>
   <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
   <h3></h3>
+  <div class="center_div">
+    <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+  </div>
+  <h1> {{ name }}:  {{ chords }}  </h1>
 </div>
 
 <!-- Second Container -->
@@ -86,7 +97,7 @@
   <h3 class="margin">Demo 1</h3>
   <p>Piano: I-IV-V-I </p>
   <audio controls>
-    <source src="audio/I-IV-V-I.wav" type="audio/wav">
+    <source src="{{url_for('static', filename='I-IV-V-I.wav')}}" type="audio/wav">
     Your browser does not support the audio element.
   </audio>
   <br>
