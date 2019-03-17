@@ -12,20 +12,20 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 file_to = ''
 
 def allowed_file(filename):
-    print(filename.rsplit('.', 1)[1].lower())
+    #print(filename.rsplit('.', 1)[1].lower())
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/")
-@app.route("/index.html")
 def home():
     return render_template('index.html')
 
-@app.route("/HowItWorks.html")
+@app.route("/HowItWorks")
+#@app.route("/HowItWorks.html")
 def how():
     return render_template('HowItWorks.html')
 
-@app.route("/examples.html", methods=['GET','POST'])
+@app.route("/examples", methods=['GET','POST'])
 def examples():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -49,7 +49,7 @@ def examples():
                                     name=key, chords=roman_nums)
     return render_template('examples.html')
 
-@app.route("/about.html")
+@app.route("/about")
 def about():
     return render_template('about.html')
 
