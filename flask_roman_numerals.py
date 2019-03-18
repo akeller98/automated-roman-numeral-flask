@@ -5,11 +5,14 @@ import os
 import generate_roman_numerals
 
 UPLOAD_FOLDER = './Audio'
+#UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/Audio/'
+CUSTOM_STATIC = './Audio'
 ALLOWED_EXTENSIONS = set(['wav'])
 
 app = Flask(__name__, template_folder='template')
+
+app.config['CUSTOM_STATIC_PATH'] = CUSTOM_STATIC
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-file_to = ''
 
 def allowed_file(filename):
     #print(filename.rsplit('.', 1)[1].lower())
@@ -39,56 +42,26 @@ def examples():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            file.filename = 'upload.wav'
+            file.filename = 'upload_new.wav'
             filename = secure_filename(file.filename)
+            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             res = generate_roman_numerals.generate(filename)
             key = res[0]
             roman_nums = res[1]
+            print(filename)
             return render_template('examples.html',
-                                    name=key, chords=roman_nums)
+                                    key=key, chords=roman_nums)
     return render_template('examples.html')
+
+@app.route('/examples/<path:filename>')
+def custom_static(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/about")
 def about():
     return render_template('about.html')
 
-@app.route("/upload", methods=['GET','POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            file.filename = 'upload.wav'
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('generateRoman',
-                                    filename=filename))
-    return '''
-    <!doctype html>
-    <title>Automated Roman Numeral Analysis</title>
-    <h1>Automated Roman Numeral Analysis</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
-
-@app.route('/roman/<filename>')
-def generateRoman(filename):
-    #key = os.system('python generate_roman_numerals.py ' + filename)
-    res = generate_roman_numerals.generate(filename)
-    key = res[0]
-    roman_nums = res[1]
-    return render_template('results.html', name=key, chords=roman_nums)
 
 if __name__ == "__main__":
     app.run()

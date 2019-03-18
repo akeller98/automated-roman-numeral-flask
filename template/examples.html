@@ -47,7 +47,11 @@
         <input type=submit value=Upload>
     </form>
   </div>
-  <h1> {{ name }}:  {{ chords }}  </h1>
+  <h1> {{ key }}:  {{ chords }}  </h1>
+  <audio controls>
+    <source src= "{{url_for('custom_static', filename='upload_new.wav')}}" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
 </div>
 
 <!-- Second Container -->

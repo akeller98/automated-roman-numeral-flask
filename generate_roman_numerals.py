@@ -2,6 +2,7 @@
 import IPython, numpy as np, scipy as sp, matplotlib.pyplot as plt, matplotlib, sklearn, librosa, cmath,math, csv
 from chord_training import training_chord_set, training_chord_labels,chord_dictionary,chord_vectors,ks_key_set,ks_key_labels,key_dictionary,key_index_dictionary,root_index_dictionary, major_roman_dictionary,minor_roman_dictionary
 import sys
+import time
 
 def load_audio(audio_path):
     """
@@ -257,25 +258,26 @@ def generateRomanNumerals(distVec, key, chord_progression):
 def scoreRomanNums(roman_numeral_vec):
     score = 0
     for i in range(len(roman_numeral_vec)):
-        if 'I' in roman_numeral_vec[i] or 'i' in roman_numeral_vec[i]:
+        if 'I' == roman_numeral_vec[i] or 'i' == roman_numeral_vec[i]:
             score = score + 5
-        elif 'V' in roman_numeral_vec[i] or 'V7' in roman_numeral_vec[i] or 'viio' in roman_numeral_vec[i]:
+        if 'V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i] or 'viio' in roman_numeral_vec[i]:
             score = score + 3
-        elif 'IV' in roman_numeral_vec[i] or 'iv' in roman_numeral_vec[i]:
+        if 'IV' == roman_numeral_vec[i] or 'iv' == roman_numeral_vec[i]:
             score = score + 1
-        elif 'ii' in roman_numeral_vec[i] or 'II' in roman_numeral_vec[i]:
+        if 'ii' == roman_numeral_vec[i] or 'II' == roman_numeral_vec[i]:
             score = score + 1
 
         if i == len(roman_numeral_vec) - 2:
-            if 'V' in roman_numeral_vec[i] and 'I' in roman_numeral_vec[i+1]:
+            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and 'I' == roman_numeral_vec[i+1]:
                 score = score + 8
-            if 'V' in roman_numeral_vec[i] and 'i' in roman_numeral_vec[i+1]:
+            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and 'i' == roman_numeral_vec[i+1]:
                 score = score + 8
-        return score
+    return score
 
 
 
 def generate(path_name):
+    start_time = time.time()
     path4 = './Audio/' + path_name
     sig_type = 'piano'
     chord, sr = load_audio(path4)
@@ -338,11 +340,17 @@ def generate(path_name):
     for i in range(len(keys)):
         dists[i,:] = calcRootDists(keys[i],chord_names)
         roman[i,:] = generateRomanNumerals(dists[i,:],keys[i],chord_names)
-        scores[i] = scoreRomanNums(roman[i])
+        scores[i] = scoreRomanNums(roman[i,:])
 
     roman_progression = roman[np.argmax(scores),:]
     key = keys[np.argmax(scores)]
     #return[key,roman_progression]
+    print('keys:', keys)
+    print('roman: ', roman)
+    print('scores: ', scores)
+
+    print("--- %s seconds ---" % (time.time() - start_time))
+    print([key,roman_progression])
     return [key, roman_progression]
     #dists = calcRootDists(key,chord_names)
     #generateRomanNumerals(dists,key,chord_names)
