@@ -5,11 +5,13 @@
   <title>Roman Numeral Analysis</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="icon" href="/static/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
+
 
 </head>
 <body>
@@ -39,34 +41,30 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h1>Automated Roman Numeral Analysis</h1>
-  <h4>By Mike Cuevas, Aaron Keller, and David Zane</h4>
-  <br>
-  <img src="{{url_for('static', filename='a.jpg')}}">
+  <h2 class="margin">Future Development</h2>
+  <p>
+    onset detect<br>
+    inversion<br>
+    patent<br>
+    startup<br>
+    fine tune pitch tracking<br>
+    actual music<br>
+    Here is the future of choord.
+  </p>
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What Am I?</h3>
-  <p>
-    We will be writing a program to perform an automated Roman numeral harmonic analysis of an input chord progression signal.
-    As an additional step, we will then convert that sequence of chords into their negative harmony equivalents.
-    We are building on existing systems to give musicians a way to experiment with negative harmonies.
-  </p>
+  
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Why?</h3>
-  <p>
-    Roman numeral analysis is an extremely important tool in analyzing the functions chords serve in a piece of music.
-    It allows musicians to understand why a composer decided to place certain chords where they did and can help improve performance.
-    Creating an automated version of this would be an important tool for musicians. This tool could be modified one day to
-    not only work for input chord progressions, but to be able to analyze input music. This has the potential to benefit
-    many fields of machine music perception.
-  </p>
 </div>
 
+
+
+</body>
 <!-- Footer -->
 <footer class="bg-4">
   <a href="https://www.mccormick.northwestern.edu/" target="_blank">
@@ -79,5 +77,4 @@
   </p>
 </footer>
 
-</body>
 </html>

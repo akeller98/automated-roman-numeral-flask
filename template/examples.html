@@ -11,6 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
+
   <script type="text/javascript">
     function handleFiles(event) {
     	var files = event.target.files;
@@ -38,7 +39,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url_for('how') }}">How It Works</a></li>
-        <li><a href="{{ url_for('examples') }}">Examples</a></li>
+        <li><a href="{{ url_for('testing') }}">Testing</a></li>
+        <li><a href="{{ url_for('examples') }}">Try Me</a></li>
+        <li><a href="{{ url_for('future') }}">Future</a></li>
         <li><a href="{{ url_for('about') }}">About Us</a></li>
       </ul>
     </div>
@@ -47,9 +50,7 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h2 class="margin">Example Testing</h2>
-  <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
-  <h3></h3>
+  <h2 class="margin">Try Me Out</h2>
   <form method=post enctype=multipart/form-data name="fileinfo">
     <input type="file" id="rll" name="file" />
     <input type=submit value="Generate">
@@ -80,35 +81,17 @@
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">Demo 1</h3>
-  <p>Piano: I-IV-V-I </p>
-  <audio controls>
-    <source src="{{url_for('static', filename='I-IV-V-I.wav')}}" type="audio/wav">
-    Your browser does not support the audio element.
-  </audio>
-  <br>
-  <br>
-  <p>Sample Output</p>
-
+  
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Demo 2</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>Image 1</p>
-      <img src="{{url_for('static', filename='test.jpg')}}" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4">
-      <p>Image 2</p>
-      <img src="{{url_for('static', filename='test.jpg')}}" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4">
-      <p>Image 3</p>
-      <img src="{{url_for('static', filename='test.jpg')}}" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-  </div>
+  <ol>
+    <h3>How to Use:</h3>
+    <li>Upload a .wav file</li>
+    <li>Listen to uploaded audio with </li>
+    <li>Click Generate</li>
+  </ol>
 </div>
 
 <!-- Footer -->

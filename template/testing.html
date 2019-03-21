@@ -5,12 +5,13 @@
   <title>Roman Numeral Analysis</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="icon" href="/static/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+  <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
+  
 </head>
 <body>
 
@@ -39,32 +40,61 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h1>Automated Roman Numeral Analysis</h1>
-  <h4>By Mike Cuevas, Aaron Keller, and David Zane</h4>
-  <br>
-  <img src="{{url_for('static', filename='a.jpg')}}">
+  <h2 class="margin">Data Sets</h2>
+  <div id="box1">
+  <ol>
+    <li>
+      <a href="http://extras.springer.com/2013/978-1-4614-7475-3" target="_blank">Database of Piano Chords</a>
+    </li>
+    <li>Manually Recorded Chord Progressions</li>
+  </ol>
+  <hr>
+  <p>stuff about datasets</p>
+  </div>
+  
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What Am I?</h3>
+  <h3 class="margin">Results</h3>
   <p>
-    We will be writing a program to perform an automated Roman numeral harmonic analysis of an input chord progression signal.
-    As an additional step, we will then convert that sequence of chords into their negative harmony equivalents.
-    We are building on existing systems to give musicians a way to experiment with negative harmonies.
+    We tested our algorith on 1000 audio files. We scored our algorithm using this formula.... We got 95% bro. Take that. The only difficulty we had was detecting some chords.
   </p>
+
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Why?</h3>
-  <p>
-    Roman numeral analysis is an extremely important tool in analyzing the functions chords serve in a piece of music.
-    It allows musicians to understand why a composer decided to place certain chords where they did and can help improve performance.
-    Creating an automated version of this would be an important tool for musicians. This tool could be modified one day to
-    not only work for input chord progressions, but to be able to analyze input music. This has the potential to benefit
-    many fields of machine music perception.
-  </p>
+  <h3 class="margin">Demos</h3><br>
+  <div class="row">
+    
+    <div class="col-sm-4">
+      <p>Demo 1</p>
+      <audio controls>
+        <source src="{{url_for('static', filename='I-IV-V-I.wav')}}" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+      <p>C Major: I-IV-V-I</p>
+    </div>
+
+    <div class="col-sm-4">
+      <p>Demo 2</p>
+      <audio controls>
+        <source src="{{url_for('static', filename='I-ii-V-i.wav')}}" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+      <p>C Major: I-ii-V-i</p>
+    </div>
+
+    <div class="col-sm-4">
+      <p>Demo 3</p>
+      <audio controls>
+        <source src="{{url_for('static', filename='test4.wav')}}" type="audio/wav">
+        Your browser does not support the audio element.
+      </audio>
+      <p>D Major: I-IV-V-V-I-iiio-I</p>
+
+    </div>
 </div>
 
 <!-- Footer -->
