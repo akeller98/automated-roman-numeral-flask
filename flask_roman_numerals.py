@@ -23,8 +23,8 @@ def home():
 def how():
     return render_template('HowItWorks.html')
 
-@app.route("/examples", methods=['GET','POST'])
-def examples():
+@app.route("/try_me", methods=['GET','POST'])
+def try_me():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -46,12 +46,19 @@ def examples():
             print(filename)
             return jsonify({"key": key, "roman_nums": roman_nums})
 
-    return render_template('examples.html')
+    return render_template('try_me.html')
 
 @app.route("/about")
 def about():
     return render_template('about.html')
 
+@app.route("/testing")
+def testing():
+    return render_template('testing.html')
+
+@app.route("/future")
+def future():
+    return render_template('future.html')
 
 if __name__ == "__main__":
     app.run()

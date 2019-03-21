@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Roman Numeral Analysis</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="icon" href="/static/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
+
+  <script type="text/javascript">
+    function handleFiles(event) {
+    	var files = event.target.files;
+    	$("#rlly").attr("src", URL.createObjectURL(files[0]));
+    	document.getElementById("rllly").load();
+    }
+    $(function(){
+      document.getElementById("rll").addEventListener("change", handleFiles, false);
+    });
+  </script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url_for('how') }}">How It Works</a></li>
+        <li><a href="{{ url_for('testing') }}">Testing</a></li>
+        <li><a href="{{ url_for('try_me') }}">Try Me</a></li>
+        <li><a href="{{ url_for('future') }}">Future</a></li>
+        <li><a href="{{ url_for('about') }}">About Us</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h2 class="margin">Try Me Out</h2>
+  <form method=post enctype=multipart/form-data name="fileinfo">
+    <input type="file" id="rll" name="file" />
+    <input type=submit value="Generate">
+  </form>
+  <audio id="rllly" controls>
+    <source src="" id="rlly" />
+  </audio>
+
+  <script>
+    var form = document.forms.namedItem("fileinfo")
+    form.addEventListener('submit', function(ev){
+      var oData = new FormData(form);
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "{{url_for('try_me')}}", true);
+      oReq.onload = function(oEvent){
+        if (oReq.status == 200){
+          document.getElementById('processed').innerHTML = JSON.parse(oReq.responseText).key + ': ' + JSON.parse(oReq.responseText).roman_nums;
+        }
+        else{
+          alert("Error bad")
+        }
+      };
+      oReq.send(oData);
+      ev.preventDefault();
+    }, false);
+  </script>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h1 id="processed" />
+</div>
+
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">
+  <ol>
+    <h3>How to Use:</h3>
+    <li>Upload a .wav file</li>
+    <li>Listen to uploaded audio with </li>
+    <li>Click Generate</li>
+  </ol>
+</div>
+
+<!-- Footer -->
+<footer class="bg-4">
+  <a href="https://www.mccormick.northwestern.edu/" target="_blank">
+    <img src="{{url_for('static', filename='logo.png')}}" class="footer-logo">
+  </a>
+  <p class="footer-text">
+    Project created for:<br/>
+    EECS 352: Machine Perception of Music<br/>
+    Professor Bryan Pardo<br/>
+  </p>
+</footer>
+
+</body>
+</html>

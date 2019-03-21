@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
-  
+
 </head>
 <body>
 
@@ -30,7 +30,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url_for('how') }}">How It Works</a></li>
         <li><a href="{{ url_for('testing') }}">Testing</a></li>
-        <li><a href="{{ url_for('examples') }}">Try Me</a></li>
+        <li><a href="{{ url_for('try_me') }}">Try Me</a></li>
         <li><a href="{{ url_for('future') }}">Future</a></li>
         <li><a href="{{ url_for('about') }}">About Us</a></li>
       </ul>
@@ -51,7 +51,7 @@
   <hr>
   <p>stuff about datasets</p>
   </div>
-  
+
 </div>
 
 <!-- Second Container -->
@@ -67,7 +67,7 @@
 <div class="container-fluid bg-3 text-center">
   <h3 class="margin">Demos</h3><br>
   <div class="row">
-    
+
     <div class="col-sm-4">
       <p>Demo 1</p>
       <audio controls>
@@ -89,12 +89,13 @@
     <div class="col-sm-4">
       <p>Demo 3</p>
       <audio controls>
-        <source src="{{url_for('static', filename='test4.wav')}}" type="audio/wav">
+        <source src="{{url_for('static', filename='test5.wav')}}" type="audio/wav">
         Your browser does not support the audio element.
       </audio>
       <p>D Major: I-IV-V-V-I-iiio-I</p>
 
     </div>
+</div>
 </div>
 
 <!-- Footer -->
