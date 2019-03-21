@@ -255,22 +255,24 @@ def generateRomanNumerals(distVec, key, chord_progression):
             roman_numeral_vec[j] = minor_roman_dictionary[dist_quality_vec[j]]
     return roman_numeral_vec
 
-def scoreRomanNums(roman_numeral_vec):
+def scoreRomanNums(roman_numeral_vec,key):
     score = 0
     for i in range(len(roman_numeral_vec)):
-        if 'I' == roman_numeral_vec[i] or 'i' == roman_numeral_vec[i]:
+        if ('I' == roman_numeral_vec[i] and 'Major' in key) or ('i' == roman_numeral_vec[i] and 'minor' in key):
             score = score + 5
         if 'V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i] or 'viio' in roman_numeral_vec[i]:
             score = score + 3
-        if 'IV' == roman_numeral_vec[i] or 'iv' == roman_numeral_vec[i]:
+        if ('IV' == roman_numeral_vec[i] and 'Major' in key) or ('iv' == roman_numeral_vec[i] and 'minor' in key):
             score = score + 1
-        if 'ii' == roman_numeral_vec[i] or 'II' == roman_numeral_vec[i]:
+        if ('ii' == roman_numeral_vec[i] and 'Major' in key) or ('iio' == roman_numeral_vec[i] and 'minor' in key):
+            score = score + 1
+        if ('vi' == roman_numeral_vec[i] and 'Major' in key) or ('VI' == roman_numeral_vec[i] and 'minor' in key):
             score = score + 1
 
         if i == len(roman_numeral_vec) - 2:
-            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and 'I' == roman_numeral_vec[i+1]:
+            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and ('I' == roman_numeral_vec[i+1] and 'Major' in key):
                 score = score + 8
-            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and 'i' == roman_numeral_vec[i+1]:
+            if ('V' == roman_numeral_vec[i] or 'V7' == roman_numeral_vec[i]) and ('i' == roman_numeral_vec[i+1] and 'minor' in key):
                 score = score + 8
     return score
 
@@ -341,7 +343,7 @@ def generate(path_name):
     for i in range(len(keys)):
         dists[i,:] = calcRootDists(keys[i],chord_names)
         roman[i,:] = generateRomanNumerals(dists[i,:],keys[i],chord_names)
-        scores[i] = scoreRomanNums(roman[i,:])
+        scores[i] = scoreRomanNums(roman[i,:],keys[i])
 
     roman_progression = roman[np.argmax(scores),:].tolist()
     key = keys[np.argmax(scores)]
