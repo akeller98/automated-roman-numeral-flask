@@ -1,21 +1,17 @@
-from flask import Flask, flash,request,redirect,url_for, send_from_directory, render_template
+from flask import Flask, flash,request,redirect,url_for, send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 import flask_roman_numerals
 import os
 import generate_roman_numerals
 
 UPLOAD_FOLDER = './Audio'
-#UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/Audio/'
-CUSTOM_STATIC = './Audio'
 ALLOWED_EXTENSIONS = set(['wav'])
 
 app = Flask(__name__, template_folder='template')
 
-app.config['CUSTOM_STATIC_PATH'] = CUSTOM_STATIC
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
-    #print(filename.rsplit('.', 1)[1].lower())
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -24,7 +20,6 @@ def home():
     return render_template('index.html')
 
 @app.route("/HowItWorks")
-#@app.route("/HowItWorks.html")
 def how():
     return render_template('HowItWorks.html')
 
@@ -44,19 +39,14 @@ def examples():
         if file and allowed_file(file.filename):
             file.filename = 'upload_new.wav'
             filename = secure_filename(file.filename)
-            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             res = generate_roman_numerals.generate(filename)
             key = res[0]
             roman_nums = res[1]
             print(filename)
-            return render_template('examples.html',
-                                    key=key, chords=roman_nums)
-    return render_template('examples.html')
+            return jsonify({"key": key, "roman_nums": roman_nums})
 
-@app.route('/examples/<path:filename>')
-def custom_static(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return render_template('examples.html')
 
 @app.route("/about")
 def about():

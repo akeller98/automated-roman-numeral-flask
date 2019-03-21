@@ -277,6 +277,7 @@ def scoreRomanNums(roman_numeral_vec):
 
 
 def generate(path_name):
+    #print(path_name)
     start_time = time.time()
     path4 = './Audio/' + path_name
     sig_type = 'piano'
@@ -342,7 +343,7 @@ def generate(path_name):
         roman[i,:] = generateRomanNumerals(dists[i,:],keys[i],chord_names)
         scores[i] = scoreRomanNums(roman[i,:])
 
-    roman_progression = roman[np.argmax(scores),:]
+    roman_progression = roman[np.argmax(scores),:].tolist()
     key = keys[np.argmax(scores)]
     #return[key,roman_progression]
     print('keys:', keys)

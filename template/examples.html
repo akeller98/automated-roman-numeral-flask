@@ -11,7 +11,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel ="stylesheet" href= "{{ url_for('static', filename='app.css') }}">
-
+  <script type="text/javascript">
+    function handleFiles(event) {
+    	var files = event.target.files;
+    	$("#rlly").attr("src", URL.createObjectURL(files[0]));
+    	document.getElementById("rllly").load();
+    }
+    $(function(){
+      document.getElementById("rll").addEventListener("change", handleFiles, false);
+    });
+  </script>
 </head>
 <body>
 
@@ -41,17 +50,32 @@
   <h2 class="margin">Example Testing</h2>
   <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
   <h3></h3>
-  <div class="center_div">
-    <form method=post enctype=multipart/form-data>
-        <input type=file name=file>
-        <input type=submit value=Upload>
-    </form>
-  </div>
-  <h1> {{ key }}:  {{ chords }}  </h1>
-  <audio controls>
-    <source src= "{{url_for('custom_static', filename='upload_new.wav')}}" type="audio/wav">
-    Your browser does not support the audio element.
+  <form method=post enctype=multipart/form-data name="fileinfo">
+    <input type="file" id="rll" name="file" />
+    <input type=submit value="Generate">
+  </form>
+  <audio id="rllly" controls>
+    <source src="" id="rlly" />
   </audio>
+  <h1 id="processed" />
+  <script>
+    var form = document.forms.namedItem("fileinfo")
+    form.addEventListener('submit', function(ev){
+      var oData = new FormData(form);
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "{{url_for('examples')}}", true);
+      oReq.onload = function(oEvent){
+        if (oReq.status == 200){
+          document.getElementById('processed').innerHTML = JSON.parse(oReq.responseText).key + ': ' + JSON.parse(oReq.responseText).roman_nums;
+        }
+        else{
+          alert("Error bad")
+        }
+      };
+      oReq.send(oData);
+      ev.preventDefault();
+    }, false);
+  </script>
 </div>
 
 <!-- Second Container -->
