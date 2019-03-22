@@ -70,15 +70,16 @@
         of it was to minimize overtones to a value close to 0 and keep the primary tones
         close to 1. However, what ended up happening is that the overtones got close to 0,
         but the primary tones were left in between 0 and 1 and depended on the loudness of
-        each pitch which affected chord identification.
+        each pitch which affected chord identification. Onset detection also occasionally split
+        chords into two sometimes affecting the chord ID.
       </p>
       <p>
         Chord identification had mostly good results identifying 43/50 correct chords with an accuracy score of 86%.
         The program excelled at determining the
         names of triads. However, when we tested it with seventh chords, it sometimes
         had a little trouble as not all of the pitches in the chord could be heard often times. This is
-        apparent in Demo 3 below, where two of the seventh chords were misidentified as
-        triads because the program only heard three out of the four pitches. However,
+        apparent in Demo 3 below, where the second seventh chords was misidentified as
+        a V instead of a V7 because the program only heard three out of the four pitches. However,
         chord that was identified instead was either the triad without the root, or the triad
         without the seventh so the chord label was actually not far off at all. Finally, an
         important note is that the program has no way of dealing with implied harmony (chords with
@@ -151,7 +152,7 @@
 <!-- Footer -->
 <footer class="bg-4">
   <a href="https://www.mccormick.northwestern.edu/" target="_blank">
-    <img src="{{url_for('static', filename='logo.png')}}" class="footer-logo">
+    <img src="{{url_for('static', filename='logo.png')}}" class="footer-logo img-responsive">
   </a>
   <p class="footer-text">
     Project created for:<br/>

@@ -41,7 +41,26 @@
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
   <h2 class="margin">How It Works</h2>
-  <img src="{{url_for('static', filename='diagram.png')}}" id="how-diagram" class="img-responsive" alt="Image">
+  <div class="col-sm-3">
+      <img src="{{url_for('static', filename='diagram_1.png')}}" id="how-diagram" class="img-responsive" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <img src="{{url_for('static', filename='diagram_2.png')}}" id="how-diagram" class="img-responsive" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <img src="{{url_for('static', filename='diagram_3.png')}}" id="how-diagram" class="img-responsive" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <img src="{{url_for('static', filename='diagram_4.png')}}" id="how-diagram" class="img-responsive" alt="Image">
+    </div>
+
+  <div>
+  </div>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+<h3 class="margin">The Process</h3>
   <p>The analyzer takes an input wav file consisting of piano block chords.
     This audio signal is then broken up into frames based on onset detection where each frame contains a chord.
     For each frame, the Harmonic Product Spectrum algorithm is applied to reduce
@@ -54,21 +73,19 @@
     root and the key. This "distance" along with the quality of the chord (major,minor,etc.) from the
     chord name returns the proper Roman Numeral for each chord.
   </p>
-</div>
 
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <h3 class="margin">Harmonic Product Spectrum</h3>
-  <p>The Harmonic Product Spectrum is a method for reducing overtones in an acoustic audio signal.
-    It works by multiplying the original signal by a series of downsampled version of the fourier transform of the original signal
-    "n" times. For an acoustic piano, we found that multiplying the original signal three times by three
-    downsampled signals provided the most accurate results.
-  </p>
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Krumhansl-Schmuckler Key-Finding Algorithm</h3>
+  <h3>Harmonic Product Spectrum</h3>
+  <p>The Harmonic Product Spectrum is a method for reducing overtones in an acoustic audio signal.
+    It works by multiplying the original signal by a series of downsampled version of the fourier transform of the original signal
+    "n" times. For an acoustic piano, we found that multiplying the original signal three times by three
+    downsampled signals provided the most accurate results.
+  </br>
+  </p>
+  <h3>Krumhansl-Schmuckler Key-Finding Algorithm</h3>
   <div class="row">
     <p>The Krumhansl-Schmuckler algorithm is the algorithm we used to determine the key of
       a chord progression. The algorithm works by using the Krumhansl-Kessler key profiles,
@@ -82,14 +99,13 @@
       based on the appearance of certain chords and cadences. The key with the highest score is most
       likely the key.
     </p>
-    <a href="https://www.jstor.org/stable/40285812?seq=1#metadata_info_tab_contents" target="_blank">KS Reference</a>
   </div>
 </div>
 
 <!-- Footer -->
 <footer class="bg-4">
   <a href="https://www.mccormick.northwestern.edu/" target="_blank">
-    <img src="{{url_for('static', filename='logo.png')}}" class="footer-logo">
+    <img src="{{url_for('static', filename='logo.png')}}" class="footer-logo img-responsive">
   </a>
   <p class="footer-text">
     Project created for:<br/>
