@@ -73,10 +73,10 @@
         each pitch which affected chord identification.
       </p>
       <p>
-        Chord identification had mostly good results identifying 40/50 correct chords with an accuracy score of 80%.
+        Chord identification had mostly good results identifying 43/50 correct chords with an accuracy score of 86%.
         The program excelled at determining the
-        names of triads. However, when we tested it with seventh chords, it had more
-        trouble as not all of the pitches in the chord could be heard often times. This is
+        names of triads. However, when we tested it with seventh chords, it sometimes
+        had a little trouble as not all of the pitches in the chord could be heard often times. This is
         apparent in Demo 3 below, where two of the seventh chords were misidentified as
         triads because the program only heard three out of the four pitches. However,
         chord that was identified instead was either the triad without the root, or the triad
@@ -142,7 +142,7 @@
         <source src="{{url_for('static', filename='test5.wav')}}" type="audio/wav">
         Your browser does not support the audio element.
       </audio>
-      <p>D Major: I-IV-V-V-I-iiio-I</p>
+      <p>D Major: I-IV-V-V-I-V7/IV-I</p>
 
     </div>
 </div>

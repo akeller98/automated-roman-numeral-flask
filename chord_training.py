@@ -133,9 +133,23 @@ B_o7= np.roll(C_o7,11) #B Fully-Diminished 7
 B_07= np.roll(C_07,11) #B Half-Diminished 7
 B_a = np.roll(C_a, 11) #B Augmented
 
+#Added
+C_D7 = np.array([1,0,0,0,1,0,0,1,0,0,1,0]) #C Dominant
+CSD7 = np.roll(C_D7,1)
+D_D7 = np.roll(C_D7,2)
+DSD7 = np.roll(C_D7,3)
+E_D7 = np.roll(C_D7,4)
+F_D7 = np.roll(C_D7,5)
+FSD7 = np.roll(C_D7,6)
+G_D7 = np.roll(C_D7,7)
+GSD7 = np.roll(C_D7,8)
+A_D7 = np.roll(C_D7,9)
+ASD7 = np.roll(C_D7,10)
+B_D7 = np.roll(C_D7,11)
+
 ####Stack chords into 2D array####
-set = [C_M,C_M7,C_m,C_m7,C_o,C_o7,C_07,C_a,CSM,CSM7,CSm,CSm7,CSo,CSo7,CS07,CSa,D_M,D_M7,D_m,D_m7,D_o,D_o7,D_07,D_a,DSM,DSM7,DSm,DSm7,DSo,DSo7,DS07,DSa,E_M,E_M7,E_m,E_m7,E_o,E_o7,E_07,E_a,F_M,F_M7,F_m,F_m7,F_o,F_o7,F_07,F_a,FSM,FSM7,FSm,FSm7,FSo,FSo7,FS07,FSa,G_M,G_M7,G_m,G_m7,G_o,G_o7,G_07,G_a,GSM,GSM7,GSm,GSm7,GSo,GSo7,GS07,GSa,A_M,A_M7,A_m,A_m7,A_o,A_o7,A_07,A_a,ASM,ASM7,ASm,ASm7,ASo,ASo7,AS07,ASa,B_M,B_M7,B_m,B_m7,B_o,B_o7,B_07,B_a]
-training_chord_set = np.zeros(shape=(96,12))
+set = [C_M,C_M7,C_m,C_m7,C_o,C_o7,C_07,C_a,CSM,CSM7,CSm,CSm7,CSo,CSo7,CS07,CSa,D_M,D_M7,D_m,D_m7,D_o,D_o7,D_07,D_a,DSM,DSM7,DSm,DSm7,DSo,DSo7,DS07,DSa,E_M,E_M7,E_m,E_m7,E_o,E_o7,E_07,E_a,F_M,F_M7,F_m,F_m7,F_o,F_o7,F_07,F_a,FSM,FSM7,FSm,FSm7,FSo,FSo7,FS07,FSa,G_M,G_M7,G_m,G_m7,G_o,G_o7,G_07,G_a,GSM,GSM7,GSm,GSm7,GSo,GSo7,GS07,GSa,A_M,A_M7,A_m,A_m7,A_o,A_o7,A_07,A_a,ASM,ASM7,ASm,ASm7,ASo,ASo7,AS07,ASa,B_M,B_M7,B_m,B_m7,B_o,B_o7,B_07,B_a,C_D7,CSD7,D_D7,DSD7,E_D7,F_D7,FSD7,G_D7,GSD7,A_D7,ASD7,B_D7]
+training_chord_set = np.zeros(shape=(108,12))
 training_chord_labels = np.zeros(training_chord_set.shape[0])
 for i in range(training_chord_set.shape[0]):
     training_chord_set[i,:] = set[i]
@@ -238,7 +252,19 @@ chord_dictionary = {
     '92': 'B_o_',
     '93': 'B_o7',
     '94': 'B_07',
-    '95': 'B_a_'}
+    '95': 'B_a_',
+    '96': 'C_D7',
+    '97': 'CSD7',
+    '98': 'D_D7',
+    '99': 'DSD7',
+    '100': 'E_D7',
+    '101': 'F_D7',
+    '102': 'FSD7',
+    '103': 'G_D7',
+    '104': 'GSD7',
+    '105': 'A_D7',
+    '106': 'ASD7',
+    '107': 'B_D7'}
 
 chord_vectors = {
     'C_M_': C_M,
@@ -336,7 +362,19 @@ chord_vectors = {
     'B_o_': B_o,
     'B_o7': B_o7,
     'B_07': B_07,
-    'B_a_': B_a}
+    'B_a_': B_a,
+    'C_D7': C_D7,
+    'CSD7': CSD7,
+    'D_D7': D_D7,
+    'DSD7': DSD7,
+    'E_D7': E_D7,
+    'F_D7': F_D7,
+    'FSD7': FSD7,
+    'G_D7': G_D7,
+    'GSD7': GSD7,
+    'A_D7': A_D7,
+    'ASD7': ASD7,
+    'B_D7': B_D7}
 
 #Krumhansl-Schmuckler Key Vectors
 #Major Keys
@@ -443,8 +481,9 @@ root_index_dictionary = {
 major_roman_dictionary = {
     '00M_': 'I', #Do
     '00m_': 'i',
-    '00M7': 'V7/IV',
-    '00m7': 'v7/IV',
+    '00M7': 'I7',
+    '00m7': 'i7',
+    '00D7': 'V7/IV',
     '00o_': 'io',
     '00o7': 'io7',
     '0007': 'i07',
@@ -453,14 +492,16 @@ major_roman_dictionary = {
     '01m_': 'bii',
     '01M7': 'bII7',
     '01m7': 'bii7',
+    '01D7': 'biiDom7',
     '01o_': 'biio',
     '01o7': 'biio7',
     '0107': 'bii07',
     '01a_': 'bII+',
     '02M_': 'V/V', #Re
     '02m_': 'ii',
-    '02M7': 'V7/V',
+    '02M7': 'II7',
     '02m7': 'ii7',
+    '02D7': 'V7/V',
     '02o_': 'iio',
     '02o7': 'iio7',
     '0207': 'ii07',
@@ -469,14 +510,16 @@ major_roman_dictionary = {
     '03m_': 'biii',
     '03M7': 'bIII7',
     '03m7': 'biii7',
+    '03D7': 'biiiDom7',
     '03o_': 'biiio',
     '03o7': 'Cto7',
     '0307': 'biii07',
     '03a_': 'bIII+',
     '04M_': 'V/vi', #Mi
     '04m_': 'iii',
-    '04M7': 'V7/vi',
-    '04m7': 'v7/vi',
+    '04M7': 'III7',
+    '04m7': 'iii7',
+    '04D7': 'V7/vi',
     '04o_': 'iiio',
     '04o7': 'iiio7',
     '0407': 'iii07',
@@ -485,6 +528,7 @@ major_roman_dictionary = {
     '05m_': 'iv',
     '05M7': 'IV7',
     '05m7': 'iv7',
+    '05D7': 'IVdom7',
     '05o_': 'ivo',
     '05o7': 'ivo7',
     '0507': 'iv07',
@@ -493,14 +537,16 @@ major_roman_dictionary = {
     '06m_': '#iv',
     '06M7': '#IV7',
     '06m7': '#iv7',
+    '06D7': '#IVdom7',
     '06o_': 'ivo',
     '06o7': 'cto7',
     '0607': '#iv07',
     '06a_': '#IV+',
     '07M_': 'V', #Sol
     '07m_': 'v',
-    '07M7': 'V7',
+    '07M7': 'V#7',
     '07m7': 'v7',
+    '07D7': 'V7',
     '07o_': 'vo',
     '07o7': 'vo7',
     '0707': 'v07',
@@ -509,14 +555,16 @@ major_roman_dictionary = {
     '08m_': 'bvi',
     '08M7': 'bVI7',
     '08m7': 'bvi7',
+    '08D7': 'Ger+6',
     '08o_': 'bvio',
     '08o7': 'bvio7',
     '0807': 'bvi07',
     '08a_': 'bVI+',
-    '09M_': 'VI', #La
+    '09M_': 'V/ii', #La
     '09m_': 'vi',
-    '09M7': 'V7/ii',
-    '09m7': 'v7/ii',
+    '09M7': 'VI#7',
+    '09m7': 'vi7',
+    '09D7': 'V7/ii',
     '09o_': 'vio',
     '09o7': 'vio7',
     '0907': 'vi07',
@@ -525,6 +573,7 @@ major_roman_dictionary = {
     '10m_': 'bvii',
     '10M7': 'bVII7',
     '10m7': 'bvii7',
+    '10D7': 'bviiDom7',
     '10o_': 'bviio',
     '10o7': 'bviio7',
     '1007': 'bvii07',
@@ -532,6 +581,7 @@ major_roman_dictionary = {
     '11M_': 'VII', #Ti
     '11m_': 'vii',
     '11M7': 'VII7',
+    '11D7': 'V7/iii',
     '11m7': 'vii7',
     '11o_': 'viio',
     '11o7': 'viio7',
@@ -541,8 +591,9 @@ major_roman_dictionary = {
 minor_roman_dictionary = {
     '00M_': 'I', #Do
     '00m_': 'i',
-    '00M7': 'V7/IV',
-    '00m7': 'v7/IV',
+    '00M7': 'I7',
+    '00m7': 'i7',
+    '00D7': 'V7/iv',
     '00o_': 'io',
     '00o7': 'io7',
     '0007': 'i07',
@@ -551,22 +602,25 @@ minor_roman_dictionary = {
     '01m_': 'bii',
     '01M7': 'bII7',
     '01m7': 'bii7',
+    '01D7': 'biiDom7',
     '01o_': 'biio',
     '01o7': 'biio7',
     '0107': 'bii07',
     '01a_': 'bII+',
     '02M_': 'V/V', #Re
     '02m_': 'ii',
-    '02M7': 'V7/V',
+    '02M7': 'II#7',
     '02m7': 'ii7',
+    '02D7': 'V7/V',
     '02o_': 'iio',
     '02o7': 'iio7',
     '0207': 'ii07',
     '02a_': 'II+',
     '03M_': 'V/VI', #Me
     '03m_': 'iii',
-    '03M7': 'V7/VI',
+    '03M7': 'III7',
     '03m7': 'iii7',
+    '03D7': 'V7/VI',
     '03o_': 'iiio',
     '03o7': 'iiio7',
     '0307': 'iii07',
@@ -575,14 +629,16 @@ minor_roman_dictionary = {
     '04m_': '♮iii',
     '04M7': '♮III7',
     '04m7': '♮iii7',
+    '04D7': '♮IIIdom7',
     '04o_': '♮iiio',
     '04o7': '♮iiio7',
     '0407': '♮iii07',
     '04a_': '♮III+',
     '05M_': 'IV', #Fa
     '05m_': 'iv',
-    '05M7': 'IV7',
+    '05M7': 'IV#7',
     '05m7': 'iv7',
+    '05D7': 'V7/VII',
     '05o_': 'ivo',
     '05o7': 'ivo7',
     '0507': 'iv07',
@@ -591,14 +647,16 @@ minor_roman_dictionary = {
     '06m_': '#iv',
     '06M7': '#IV7',
     '06m7': '#iv7',
+    '06D7': '#ivDom7',
     '06o_': 'ivo',
     '06o7': 'cto7',
     '0607': '#iv07',
     '06a_': '#IV+',
     '07M_': 'V', #Sol
     '07m_': 'v',
-    '07M7': 'V7',
+    '07M7': 'V#7',
     '07m7': 'v7',
+    '07D7': 'V7',
     '07o_': 'vo',
     '07o7': 'vo7',
     '0707': 'v07',
@@ -607,14 +665,16 @@ minor_roman_dictionary = {
     '08m_': 'vi',
     '08M7': 'VI7',
     '08m7': 'vi7',
+    '08D7': 'Ger+6',
     '08o_': 'vio',
     '08o7': 'vio7',
     '0807': 'vi07',
     '08a_': 'VI+',
     '09M_': '♮VI', #La
     '09m_': '♮vi',
-    '09M7': '♮VI',
-    '09m7': '♮vi',
+    '09M7': '♮VI7',
+    '09m7': '♮vi7',
+    '09D7': '♮VIdom7',
     '09o_': '♮vio',
     '09o7': '♮vio7',
     '0907': '♮vi07',
@@ -623,6 +683,7 @@ minor_roman_dictionary = {
     '10m_': 'bvii',
     '10M7': 'bVII7',
     '10m7': 'bvii7',
+    '10D7': 'V7/iii',
     '10o_': 'bviio',
     '10o7': 'bviio7',
     '1007': 'bvii07',
@@ -631,6 +692,7 @@ minor_roman_dictionary = {
     '11m_': 'vii',
     '11M7': 'VII7',
     '11m7': 'vii7',
+    '11D7': 'VIIdom7',
     '11o_': 'viio',
     '11o7': 'viio7',
     '1107': 'vii07',
