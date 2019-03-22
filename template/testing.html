@@ -42,32 +42,82 @@
 <div class="container-fluid bg-1 text-center">
   <h2 class="margin">Data Sets</h2>
   <div id="box1">
-  <ol>
-    <li>
-      <a href="http://extras.springer.com/2013/978-1-4614-7475-3" target="_blank">Database of Piano Chords</a>
-    </li>
-    <li>Manually Recorded Chord Progressions</li>
-  </ol>
+  <h3>
+    <a href="http://extras.springer.com/2013/978-1-4614-7475-3" target="_blank">1. UMA Database of Piano Chords</a>
+  </h3>
+  <h3>2. Manually Recorded Chord Progressions</h3>
+
   <hr>
-  <p>stuff about datasets</p>
+  <p>To test the chord identification, we used the Database of Piano chords consisting of 16GB worth of chord wav files. Additionally,
+    we manually recorded individual chords to get recordings from different pianos. This would give us a full range to test the KNN chord
+    classifier.
+  </p>
+  <p>Furthermore, we concatenated specific audio files from the Database of Piano Chords and recorded our own chord progressions
+    to test the modified Krumhansl-Schmuckler algorithm as well as the final generated Roman numerals.
+  </p>
   </div>
 
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">Results</h3>
-  <p>
-    We tested our algorith on 1000 audio files. We scored our algorithm using this formula.... We got 95% bro. Take that. The only difficulty we had was detecting some chords.
-  </p>
+  <h2 class="margin">Results and Limitations</h2>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>HPS and Chord Identification</h3>
+      <p>
+        The Harmonic Product Spectrum algorithm seems to have mixed results. The goal
+        of it was to minimize overtones to a value close to 0 and keep the primary tones
+        close to 1. However, what ended up happening is that the overtones got close to 0,
+        but the primary tones were left in between 0 and 1 and depended on the loudness of
+        each pitch which affected chord identification.
+      </p>
+      <p>
+        Chord identification had mostly good results identifying 40/50 correct chords with an accuracy score of 80%.
+        The program excelled at determing the
+        names of triads. However, when we tested it with seventh chords, it had more
+        trouble as not all of the pitches in the chord could be heard often times. This is
+        apparent in Demo 3 below, where two of the seventh chords were misidentified as
+        triads because the program only heard three out of the four pitches. However,
+        chord that was identified instead was either the triad without the root, or the triad
+        without the seventh so the chord label was actually not far off at all. Finally, an
+        important note is that the program has no way of dealing with implied harmony (chords with
+        missing pitches). However, this is a challenging task for musicians, and could be
+        developed in the future.
+        </thead>
+        </thead>
+      </p>
+    </div>
+
+    <div class="col-sm-6">
+      <h3>Krumhansl-Schmuckler and Roman Numerals</h3>
+      <p>
+        All of the testing with the key-finding algorithm has been 100% accurate.
+        At first, the base algorithm had a little trouble identifying the key of
+        shorter chord progressions with chords mixed from different keys. However,
+        after implementing a scoring system based on music theory concepts like
+        cadences and the appearences of certain chords. After this implementation,
+        the program has yet to be incorrect in identifying the key. Something to note,
+        however, is that when testing with key modulations such as in Demo 2
+        below, the program chose the closest match rather than returning multiple keys
+        as this is not implemented.
+      </p>
+      <p>
+        For testing the Roman numeral output, we had to assume that the input
+        chord labels and key were correct. The final output has been 100% accurate
+        in returning the proper Roman numerals as it is based on simple distance
+        calculations and dictionary mapping.
+      </p>
+    </div>
+
+</div>
 
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Demos</h3><br>
+  <h2 class="margin">Demos</h2>
   <div class="row">
-
     <div class="col-sm-4">
       <p>Demo 1</p>
       <audio controls>

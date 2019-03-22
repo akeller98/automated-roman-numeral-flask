@@ -50,11 +50,22 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h2 class="margin">Try Me Out</h2>
+    <h2 class="margin">Try Me Out</h2>
+  <h2>
+    <h3>How to Use:</h3>
+    <p>1. Upload a .wav file of block piano chords</p>
+    <p>2. Click Generate to see the analysis results</p>
+  </h2>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
   <form method=post enctype=multipart/form-data name="fileinfo">
-    <input type="file" id="rll" name="file" />
-    <input type=submit value="Generate">
+    <input type="file" id="rll" name="file" style="margin-left: 40%;" />
+  </br>
+    <input type=submit value="Generate" style="color: black;" >
   </form>
+  </br>
   <audio id="rllly" controls>
     <source src="" id="rlly" />
   </audio>
@@ -77,21 +88,13 @@
       ev.preventDefault();
     }, false);
   </script>
-</div>
 
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <h1 id="processed" />
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <ol>
-    <h3>How to Use:</h3>
-    <li>Upload a .wav file</li>
-    <li>Listen to uploaded audio with </li>
-    <li>Click Generate</li>
-  </ol>
+  <h2 class="margin">Results</h2>
+  <h1 id="processed" />
 </div>
 
 <!-- Footer -->
